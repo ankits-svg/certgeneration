@@ -58,19 +58,28 @@ certRouter.post("/pdf", (req, res) => {
     .font("Times-Bold")
     .fontSize(10)
     .fillColor("skyblue")
-    .text("* * * This is to certify that * * *", 310, 180)
+    .text("* * * This is to certify that * * *", 310, 200)
     .moveDown(0.5);
+   
+    const textWidth = doc.widthOfString(`${name}`, { font: "Times-BoldItalic", size: 34 });
+    const xCoordinate = (doc.page.width - textWidth) / 2;
+  // doc
+  //   .font("Times-BoldItalic")
+  //   .fontSize(34)
+  //   .fillColor("orange")
+  //   .text(`${name}`, 290, 240, {
+  //     underline: true,
+  //   })
+  //   .moveDown(0.5);
 
-  doc
+    doc
     .font("Times-BoldItalic")
     .fontSize(34)
     .fillColor("orange")
-    .text(`${name}`, 290, 240, {
+    .text(`${name}`, xCoordinate, 240, {
       underline: true,
     })
     .moveDown(0.5);
-
-  
   doc
     .font("Times-Roman")
     .fontSize(14)
