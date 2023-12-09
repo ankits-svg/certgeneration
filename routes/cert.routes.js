@@ -14,7 +14,7 @@ function formatCurrentDate() {
 certRouter.post("/pdf", (req, res) => {
   const { studentId, certtype, body, name, cofounder, founder } = req.body;
   // Create a PDF document
-  const doc = new PDFDocument({ layout: "landscape", size: "A4" });
+  const doc = new PDFDocument({ layout: "landscape", size: "a4"});
 
   // Logo image URL
   const logoPath = "assets/logo.png";
@@ -61,25 +61,30 @@ certRouter.post("/pdf", (req, res) => {
     .text("* * * This is to certify that * * *", 310, 200)
     .moveDown(0.5);
    
-    const textWidth = doc.widthOfString(`${name}`, { font: "Times-BoldItalic", size: 34 });
-    const xCoordinate = (doc.page.width - textWidth) / 2;
+   
+  doc
+    .font("Times-BoldItalic")
+    .fontSize(34)
+    .fillColor("orange")
+    .text(`${name}`, 290, 240, {
+      underline: true,
+    })
+    .moveDown(0.5);
+
+  // const names = `${name}`; // Replace with the actual name
+
+  // const textWidth = doc.widthOfString(names, { font: "Times-BoldItalic", size: 34 });
+  // const xCoordinate = (doc.page.width - textWidth) / 2;
+  
   // doc
   //   .font("Times-BoldItalic")
   //   .fontSize(34)
   //   .fillColor("orange")
-  //   .text(`${name}`, 290, 240, {
+  //   .text(names, xCoordinate, 240, {
   //     underline: true,
+  //     align: 'center', // Optional, you can try adding this property
   //   })
   //   .moveDown(0.5);
-
-    doc
-    .font("Times-BoldItalic")
-    .fontSize(34)
-    .fillColor("orange")
-    .text(`${name}`, xCoordinate, 240, {
-      underline: true,
-    })
-    .moveDown(0.5);
   doc
     .font("Times-Roman")
     .fontSize(14)
